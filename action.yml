@@ -487,6 +487,7 @@ runs:
             echo "::group:: Packaging Anykernel3 flasher"
             if [ ! -z ${{ inputs.anykernel3-url }} ]; then
                 git clone ${{ inputs.anykernel3-url }} AnyKernel3
+                sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
                 VERSI="${{ github.event.inputs.versi }}"
                 sed -i "s/TANGGAL/$(date +'%Y-%m-%d')/g" AnyKernel3/anykernel.sh
                 sed -i "s/VARIANT/$VERSI/g/" AnyKernel3/anykernel.sh
