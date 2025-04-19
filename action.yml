@@ -226,7 +226,7 @@ runs:
          elif [ ! -z ${{ inputs.other-clang-url }} ]; then
              echo "::group:: Downloading Third party clang"
              export OTHER_CLANG_URL=${{ inputs.other-clang-url }}
-             download_and_extract "$OTHER_CLANG_URL" "clang" "$HOME/clang" "15.0"
+             download_and_extract "$OTHER_CLANG_URL" "clang" "$HOME/clang" "${{ inputs.other-clang-branch }}"
              [ ! -d $HOME/clang/bin/ ] && mv $HOME/clang/*/* $HOME/clang/
 
              if ! ls "$HOME/clang/*-linux-*" &>/dev/null; then
