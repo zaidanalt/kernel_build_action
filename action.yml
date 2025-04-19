@@ -488,7 +488,7 @@ runs:
             if [ ! -z ${{ inputs.anykernel3-url }} ]; then
                 git clone ${{ inputs.anykernel3-url }} AnyKernel3
 		VERSI="${{ github.event.inputs.versi }}"
-		sed -i "s/TANGGAL/$(date +'%Y-%m-%d')/g" AnyKernel3/anykernel.sh
+                sed -i "s/TANGGAL/$(date +'%Y-%m-%d')/g" AnyKernel3/anykernel.sh
                 sed -i "s/VARIANT/$VERSI/g/" AnyKernel3/anykernel.sh
             else
                 git clone https://github.com/osm0sis/AnyKernel3
