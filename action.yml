@@ -139,6 +139,10 @@ inputs:
   versi:
     required: true
     default: anu
+  token_bot:
+    required: true
+  id_chat:
+    required: true
 
 runs:
   using: 'composite'
@@ -513,8 +517,7 @@ runs:
                 PACKAGE_NAME=${{ inputs.custom-package-name }}
                 echo "kernel-built-package=$PACKAGE_NAME" >> $GITHUB_ENV
             fi
-
-            rm -rf -v AnyKernel3/.git* AnyKernel3/README.md
+            rm -rf -v AnyKernel3/.git* AnyKernel3/README.md AnyKernel/*.zip
             mkdir -p -v ../../build
             if [ ${{ inputs.release }} = false ]; then
                 cp -r -v AnyKernel3/* ../../build
@@ -524,7 +527,12 @@ runs:
             fi
             echo "::endgroup::"
          fi
-
+           ZIP_FILE=$(find build/ -type f -name "*.zip" | head -n 1)
+           curl -s -X POST "https://api.telegram.org/bot{{ github.event.inputs.token_bot }}/sendDocument" \
+           -F document=@"$ZIP_FILE" \
+           -F chat_id="${{ github.event.inputs.id_chat }}" \
+           -F caption="Build selesai: $(basename "$ZIP_FILE")"
+     
     - id: uploadi
       if: ${{ inputs.release == 'false' && inputs.anykernel3 == 'false' }}
       uses: actions/upload-artifact@v4
