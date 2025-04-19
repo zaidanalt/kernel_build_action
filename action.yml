@@ -490,7 +490,7 @@ runs:
                 sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
                 VERSI="${{ github.event.inputs.versi }}"
                 sed -i "s/TANGGAL/$(date +'%Y-%m-%d')/g" AnyKernel3/anykernel.sh
-                sed -i "s/VARIANT/$VERSI/g/" AnyKernel3/anykernel.sh
+                sed -i "s|VARIANT|$VERSI|g" AnyKernel3/anykernel.sh
             else
                 git clone https://github.com/osm0sis/AnyKernel3
                 sed -i 's!BLOCK=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!BLOCK=auto;!g' AnyKernel3/anykernel.sh
