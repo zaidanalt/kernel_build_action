@@ -136,6 +136,9 @@ inputs:
     description: 'Custom AnyKernel3 package name'
     required: false
     default: Anykernel3-flasher
+  versi:
+    required: true
+    default: anu
 
 runs:
   using: 'composite'
@@ -484,6 +487,9 @@ runs:
             echo "::group:: Packaging Anykernel3 flasher"
             if [ ! -z ${{ inputs.anykernel3-url }} ]; then
                 git clone ${{ inputs.anykernel3-url }} AnyKernel3
+		VERSI="${{ github.event.inputs.versi }}"
+		sed -i "s/TANGGAL/$(date +'%Y-%m-%d')/g" AnyKernel3/anykernel.sh
+                sed -i "s/VARIANT/$VERSI/g/" AnyKernel3/anykernel.sh
             else
                 git clone https://github.com/osm0sis/AnyKernel3
                 sed -i 's!BLOCK=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;!BLOCK=auto;!g' AnyKernel3/anykernel.sh
