@@ -527,11 +527,11 @@ runs:
             fi
             echo "::endgroup::"
          fi
-           ZIP_FILE=$(find build/ -type f -name "*.zip" | head -n 1)
-           curl -s -X POST "https://api.telegram.org/bot{{ github.event.inputs.token_bot }}/sendDocument" \
-           -F document=@"$ZIP_FILE" \
-           -F chat_id="${{ github.event.inputs.id_chat }}" \
-           -F caption="Build selesai: $(basename "$ZIP_FILE")"
+           #ZIP_FILE=$(find build/ -type f -name "*.zip" | head -n 1)
+           #curl -s -X POST "https://api.telegram.org/bot{{ github.event.inputs.token_bot }}/sendDocument" \
+           #-F document=@"$ZIP_FILE" \
+           #-F chat_id="${{ github.event.inputs.id_chat }}" \
+           #-F caption="Build selesai: $(basename "$ZIP_FILE")"
      
     - id: uploadi
       if: ${{ inputs.release == 'false' && inputs.anykernel3 == 'false' }}
